@@ -17,47 +17,74 @@ public class PizzaMemDao implements IPizzaDao {
 		new Pizza("ORI", "L'orientale", 13.50),
 		new Pizza("IND", "L'indienne", 14.00)
 	};
-	ArrayList<Pizza> pizzasList = new ArrayList<Pizza>(Arrays.asList(pizzas));
 
 	@Override
-	public ArrayList<Pizza> findAllPizzas() {
-		return pizzasList;
+	public Pizza[] findAllPizzas() {
+		return pizzas;
 	}
 
 	public void saveNewPizza(Pizza pizza) {
-		pizzasList.add(pizza);
+		pizzas[pizzas.length-1] = pizza;
 	}
 
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) {
-		Pizza oldPizza = findPizzaByCode(codePizza);
-		oldPizza.code = pizza.code;
-		oldPizza.libelle = pizza.libelle;
-		oldPizza.prix = pizza.prix;
+		boolean found = false;
+		int compteur = 0;
+		while (!found && compteur < pizzas.length) {
+			if (pizzas[compteur].code.equals(codePizza)) {
+				found = true;
+				pizzas[compteur] = pizza;
+				break;
+			}
+			compteur++;
+		}
 	}
 
 	@Override
 	public void deletePizza(String codePizza) {
-		// TODO Auto-generated method stub
-
+		Pizza pizza = findPizzaByCode(codePizza);
 	}
 
 	@Override
 	public Pizza findPizzaByCode(String codePizza) {
-		Iterator it = pizzasList.iterator();
-		while (it.hasNext()) {
-			Pizza currentPizza = (Pizza) it.next();
-			if (currentPizza.code == codePizza) {
-				return currentPizza;
+		boolean found = false;
+		int compteur = 0;
+		while (!found && compteur < pizzas.length) {
+			if (pizzas[compteur].code.equals(codePizza)) {
+				found = true;
+				return pizzas[compteur];
 			}
+			compteur++;
 		}
 		return null;
 	}
 
 	@Override
 	public boolean pizzaExists(String codePizza) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean found = false;
+		int compteur = 0;
+		while (!found && compteur < pizzas.length) {
+			if (pizzas[compteur].code.equals(codePizza)) {
+				found = true;
+				break;
+			}
+			compteur++;
+		}
+		return found;
+	}
+	
+	public void displayPizzaList() {
+		for (int i = 0; i < pizzas.length; i++){
+			Pizza myPizza = pizzas[i];
+			System.out.println(myPizza.code 
+					+ " -> " 
+					+ myPizza.libelle 
+					+ " (" 
+					+ myPizza.prix 
+					+ "€)"
+					);
+		}
 	}
 
 }

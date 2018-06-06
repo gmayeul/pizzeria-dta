@@ -12,7 +12,6 @@ public class PizzeriaAdminConsoleApp {
 
 	public static void main(String[] args) {
 		PizzaMemDao dao = new PizzaMemDao();
-		Iterator<Pizza> it = dao.findAllPizzas().iterator();
 		
 		int choice = 0;	//dernier choix effectué
 		Scanner sc = new Scanner(System.in);
@@ -27,17 +26,7 @@ public class PizzeriaAdminConsoleApp {
 			
 			/* Lister les pizzas */
 			case 1:
-				it = dao.findAllPizzas().iterator();
-				while (it.hasNext()){
-					Pizza myPizza = (Pizza) it.next();
-					System.out.println(myPizza.code 
-							+ " -> " 
-							+ myPizza.libelle 
-							+ " (" 
-							+ myPizza.prix 
-							+ "€)"
-							);
-				}
+				dao.displayPizzaList();
 				break;
 				
 			/* Ajouter une nouvelle pizza */
@@ -54,31 +43,33 @@ public class PizzeriaAdminConsoleApp {
 				
 			/* Mettre à jour une pizza */	
 			case 3:
-				it = dao.findAllPizzas().iterator();
-				while (it.hasNext()){
-					Pizza myPizza = (Pizza) it.next();
-					System.out.println(myPizza.code 
-							+ " -> " 
-							+ myPizza.libelle 
-							+ " (" 
-							+ myPizza.prix 
-							+ "€)"
-							);
-				}
+				dao.displayPizzaList();
 				System.out.println("Veuillez choisir le code de la pizza à modifier :");
 				String oldCode = sc.next();
+				if (dao.pizzaExists(oldCode)) {
+					System.out.println("Veuillez saisir le nouveau code :");
+					String newCode = sc.next();
+					System.out.println("Veuillez saisir le nouveau nom (sans espace) :");
+					String newLibelle = sc.next();
+					System.out.println("Veuillez saisir le nouveau prix :");
+					double newPrix = sc.nextDouble();
+					dao.updatePizza(oldCode, new Pizza(newCode, newLibelle, newPrix));
+				}
+				else
+					System.out.println("Pizza introuvable.");
+				break;
 				
-				System.out.println("Veuillez saisir le nouveau code :");
-				String newCode = sc.next();
-				System.out.println("Veuillez saisir le nouveau nom (sans espace) :");
-				String newLibelle = sc.next();
-				System.out.println("Veuillez saisir le nouveau prix :");
-				double newPrix = sc.nextDouble();
-				dao.updatePizza(oldCode, new Pizza(newCode, newLibelle, newPrix));
-				break;
+			/* Supprimer une pizza */
 			case 4:
-				System.out.println("4. Supprimer une pizza\n");
+				System.out.println("Veuillez choisir le code de la pizza à supprimer :");
+				String codeDeletedPizza = sc.next();
+				if (dao.pizzaExists(codeDeletedPizza))
+					dao.deletePizza(codeDeletedPizza);
+				else
+					System.out.println("Pizza introuvable.");
 				break;
+				
+			/* Sortir */
 			case 99:
 				break;
 			}

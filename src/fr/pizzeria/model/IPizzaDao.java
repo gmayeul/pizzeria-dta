@@ -3,7 +3,7 @@ package fr.pizzeria.model;
 import java.util.ArrayList;
 
 public interface IPizzaDao {
-	public ArrayList<Pizza> findAllPizzas();
+	public Pizza[] findAllPizzas();
 	public void saveNewPizza(Pizza pizza);
 	public void updatePizza(String codePizza, Pizza pizza);
 	public void deletePizza(String codePizza);
