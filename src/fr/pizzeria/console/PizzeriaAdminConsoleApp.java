@@ -46,17 +46,13 @@ public class PizzeriaAdminConsoleApp {
 				dao.displayPizzaList();
 				System.out.println("Veuillez choisir le code de la pizza à modifier :");
 				String oldCode = sc.next();
-				if (dao.pizzaExists(oldCode)) {
-					System.out.println("Veuillez saisir le nouveau code :");
-					String newCode = sc.next();
-					System.out.println("Veuillez saisir le nouveau nom (sans espace) :");
-					String newLibelle = sc.next();
-					System.out.println("Veuillez saisir le nouveau prix :");
-					double newPrix = sc.nextDouble();
-					dao.updatePizza(oldCode, new Pizza(newCode, newLibelle, newPrix));
-				}
-				else
-					System.out.println("Pizza introuvable.");
+				System.out.println("Veuillez saisir le nouveau code :");
+				String newCode = sc.next();
+				System.out.println("Veuillez saisir le nouveau nom (sans espace) :");
+				String newLibelle = sc.next();
+				System.out.println("Veuillez saisir le nouveau prix :");
+				double newPrix = sc.nextDouble();
+				dao.updatePizza(oldCode, new Pizza(newCode, newLibelle, newPrix));
 				break;
 				
 			/* Supprimer une pizza */
