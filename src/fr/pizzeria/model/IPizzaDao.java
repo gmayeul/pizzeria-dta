@@ -1,6 +1,5 @@
 package fr.pizzeria.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface IPizzaDao {

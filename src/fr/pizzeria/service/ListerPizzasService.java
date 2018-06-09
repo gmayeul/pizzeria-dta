@@ -5,7 +5,7 @@ import java.util.Scanner;
 import fr.pizzeria.model.Pizza;
 import fr.pizzeria.model.PizzaMemDao;
 
-public class ListerPizzasService extends MenuService{
+public class ListerPizzasService extends MenuService {
 	public ListerPizzasService() {
 		super();
 	}

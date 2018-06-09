@@ -1,8 +1,6 @@
 package fr.pizzeria.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class PizzaMemDao implements IPizzaDao {
@@ -30,54 +28,39 @@ public class PizzaMemDao implements IPizzaDao {
 	@Override
 	public void saveNewPizza(Pizza pizza) {
 		pizzas.add(pizza);
-		displayPizzaList();
 	}
 
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) {
-		if (pizzaExists(codePizza)) {
-			boolean found = false;
-			int compteur = 0;
-			while (!found && compteur < pizzas.size()) {
-				if (pizzas.get(compteur) == findPizzaByCode(codePizza)) {
-					found = true;
-					pizzas.set(compteur, pizza);
-					break;
-				}
-				compteur++;
+		boolean found = false;
+		int compteur = 0;
+		while (!found && compteur < pizzas.size()) {
+			if (pizzas.get(compteur) == findPizzaByCode(codePizza)) {
+				found = true;
+				pizzas.set(compteur, pizza);
+				break;
 			}
-			displayPizzaList();
+			compteur++;
 		}
-		else
-			System.out.println("Pizza introuvable !");
 	}
 
 	@Override
 	public void deletePizza(String codePizza) {
-		if (pizzaExists(codePizza)) {
-			for (int compteur = 0 ; compteur < pizzas.size() ; compteur++) {
-				if (pizzas.get(compteur) == findPizzaByCode(codePizza)) {
-					pizzas.remove(compteur);
-				}
+		for (int compteur = 0 ; compteur < pizzas.size() ; compteur++) {
+			if (pizzas.get(compteur) == findPizzaByCode(codePizza)) {
+				pizzas.remove(compteur);
 			}
 		}
-		else
-			System.out.println("Pizza introuvable !");
 	}
 
 	@Override
 	public Pizza findPizzaByCode(String codePizza) {
-		if (pizzaExists(codePizza)) {
-			int compteur = 0;
-			while (compteur < pizzas.size()) {
-				if (pizzas.get(compteur).getCode().equals(codePizza))
-					return pizzas.get(compteur);
-				compteur++;
-			}
-		}
-		else {
-			System.out.println("Pizza introuvable !");
-		}
+		int compteur = 0;
+		while (compteur < pizzas.size()) {
+			if (pizzas.get(compteur).getCode().equals(codePizza))
+				return pizzas.get(compteur);
+			compteur++;
+		}		
 		return null;
 	}
 
@@ -93,19 +76,6 @@ public class PizzaMemDao implements IPizzaDao {
 			compteur++;
 		}
 		return found;
-	}
-	
-	public void displayPizzaList() {
-		for (int i = 0; i < pizzas.size(); i++){
-			Pizza myPizza = pizzas.get(i);
-			System.out.println(myPizza.getCode() 
-					+ " -> " 
-					+ myPizza.getLibelle() 
-					+ " (" 
-					+ myPizza.getPrix() 
-					+ "€)"
-					);
-		}
 	}
 
 }
