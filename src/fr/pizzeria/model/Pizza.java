@@ -2,11 +2,21 @@ package fr.pizzeria.model;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import fr.pizzeria.utils.ToString;
+
 public class Pizza {	
 	private int id;
+	
+	@ToString
 	private String code;
+	
+	@ToString
 	private String libelle;
+	
+	@ToString
 	private double prix;
+	
+	@ToString
 	private CategoriePizza categorie;
 	
 	private static final AtomicInteger count = new AtomicInteger(0);
@@ -67,7 +77,7 @@ public class Pizza {
 		this.categorie = categorie;
 	}
 
-	public String getPizza() {
+	public String toString() {
 		return getCode() 
 				+ " -> " 
 				+ getLibelle() 

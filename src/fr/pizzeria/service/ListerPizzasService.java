@@ -15,7 +15,7 @@ public class ListerPizzasService extends MenuService {
 		List<Pizza> pizzas = pizzaMemDao.findAllPizzas();
 		for (Pizza pizza : pizzas) {
 			if (pizza != null)
-				System.out.println(pizza.getPizza());
+				System.out.println(pizza.toString());
 		}
 	}
 }
