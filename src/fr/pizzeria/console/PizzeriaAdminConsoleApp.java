@@ -10,8 +10,7 @@ public class PizzeriaAdminConsoleApp {
 		try {
 			menuServiceFactory.launchMenu();
 		} catch (StockageException e) {
-			e.printStackTrace();
-			System.out.println("Euh ouais y a une erreur là !");
+			System.out.println(e.getMessage());
 		}
 	}
 }

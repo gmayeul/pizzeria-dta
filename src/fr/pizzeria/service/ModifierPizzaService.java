@@ -2,8 +2,8 @@ package fr.pizzeria.service;
 
 import java.util.Scanner;
 
-import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 import fr.pizzeria.model.PizzaMemDao;
 
@@ -28,6 +28,27 @@ public class ModifierPizzaService extends MenuService {
 		double newPrix = sc.nextDouble();
 		if (newPrix < 0)
 			throw new UpdatePizzaException("Erreur : Le prix saisi est inférieur à 0.");
-		pizzaMemDao.updatePizza(oldCode, new Pizza(newCode, newLibelle, newPrix));
+		System.out.println("Veuillez saisir la catégorie :");
+		int categorieNumber = 1;
+		for (CategoriePizza categorieChoice : CategoriePizza.values()) {
+			System.out.println(categorieNumber + ": " + categorieChoice.getNom());
+			categorieNumber++;
+		}
+		categorieNumber = sc.nextInt();
+		CategoriePizza newCategorie = null;
+		switch (categorieNumber) {
+		case 1:
+			newCategorie = CategoriePizza.VIANDE;
+			break;
+		case 2:
+			newCategorie = CategoriePizza.POISSON;
+			break;
+		case 3:
+			newCategorie = CategoriePizza.SANS_VIANDE;
+			break;	
+		default:
+			newCategorie = CategoriePizza.SANS_VIANDE;
+		}
+		pizzaMemDao.updatePizza(oldCode, new Pizza(newCode, newLibelle, newPrix, newCategorie));
 	}
 }

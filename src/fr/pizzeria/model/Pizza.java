@@ -7,21 +7,24 @@ public class Pizza {
 	private String code;
 	private String libelle;
 	private double prix;
+	private CategoriePizza categorie;
 	
 	private static final AtomicInteger count = new AtomicInteger(0);
 	
-	public Pizza(String code, String libelle, double prix) {
+	public Pizza(String code, String libelle, double prix, CategoriePizza categorie) {
 		this.setId(count.incrementAndGet());
 		this.setCode(code);
 		this.setLibelle(libelle);
 		this.setPrix(prix);
+		this.setCategorie(categorie);
 	}
 	
-	public Pizza(int id, String code, String libelle, double prix) {
+	public Pizza(int id, String code, String libelle, double prix, CategoriePizza categorie) {
 		this.setId(id);
 		this.setCode(code);
 		this.setLibelle(libelle);
 		this.setPrix(prix);
+		this.setCategorie(categorie);
 	}
 
 	public int getId() {
@@ -56,7 +59,23 @@ public class Pizza {
 		this.prix = prix;
 	}
 	
+	public CategoriePizza getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(CategoriePizza categorie) {
+		this.categorie = categorie;
+	}
+
 	public String getPizza() {
-		return getCode() + " -> " + getLibelle() + " (" + getPrix() + ")";
+		return getCode() 
+				+ " -> " 
+				+ getLibelle() 
+				+ " (" 
+				+ String.format("%.2f", getPrix())
+				+ " €)" 
+				+ " [" 
+				+ getCategorie().getNom() 
+				+ "]";
 	}
 }
