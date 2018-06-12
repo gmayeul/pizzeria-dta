@@ -15,11 +15,17 @@ public class AjouterPizzaService extends MenuService {
 	@Override
 	public void executeUC(Scanner sc, PizzaMemDao pizzaMemDao) throws SavePizzaException {
 		System.out.println("Veuillez saisir le code : ");
-		String code = sc.next();
+		String code = sc.nextLine();
 		System.out.println("Veuillez saisir le nom (sans espace) : ");
-		String libelle = sc.next();
+		String libelle = sc.nextLine();
 		System.out.println("Veuillez saisir le prix : ");
-		double prix = sc.nextDouble();
+		String sPrix = sc.nextLine();
+		double prix;
+		try {
+			prix = Double.parseDouble(sPrix);
+		} catch (NumberFormatException e) {
+			throw new SavePizzaException();
+		}
 		if (prix < 0)
 			throw new SavePizzaException("Erreur : Le prix saisi est inférieur à 0.");
 		System.out.println("Veuillez saisir la catégorie :");

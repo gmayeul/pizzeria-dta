@@ -6,7 +6,7 @@ import java.util.List;
 public class PizzaMemDao implements IPizzaDao {
 	
 	/* Initialisation liste pizzas */
-	public List<Pizza> pizzas;
+	private List<Pizza> pizzas;
 	
 	public PizzaMemDao() {
 		pizzas = new ArrayList<Pizza>();
