@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.model.CategoriePizza;
+import fr.pizzeria.model.IPizzaDao;
 import fr.pizzeria.model.Pizza;
-import fr.pizzeria.model.PizzaMemDao;
 
 public class AjouterPizzaService extends MenuService {
 	public AjouterPizzaService() {
@@ -13,13 +13,13 @@ public class AjouterPizzaService extends MenuService {
 	}
 	
 	@Override
-	public void executeUC(Scanner sc, PizzaMemDao pizzaMemDao) throws SavePizzaException {
+	public void executeUC(Scanner sc, IPizzaDao pizzaDao) throws SavePizzaException {
 		System.out.println("Veuillez saisir le code : ");
-		String code = sc.nextLine();
+		String code = sc.next();
 		System.out.println("Veuillez saisir le nom (sans espace) : ");
-		String libelle = sc.nextLine();
+		String libelle = sc.next();
 		System.out.println("Veuillez saisir le prix : ");
-		String sPrix = sc.nextLine();
+		String sPrix = sc.next();
 		double prix;
 		try {
 			prix = Double.parseDouble(sPrix);
@@ -50,6 +50,6 @@ public class AjouterPizzaService extends MenuService {
 			categorie = CategoriePizza.SANS_VIANDE;
 		}
 		Pizza newPizza = new Pizza(code, libelle, prix, categorie);
-		pizzaMemDao.saveNewPizza(newPizza);
+		pizzaDao.saveNewPizza(newPizza);
 	}
 }

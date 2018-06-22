@@ -22,7 +22,6 @@ public class Pizza {
 	private static final AtomicInteger count = new AtomicInteger(0);
 	
 	public Pizza(String code, String libelle, double prix, CategoriePizza categorie) {
-		this.setId(count.incrementAndGet());
 		this.setCode(code);
 		this.setLibelle(libelle);
 		this.setPrix(prix);

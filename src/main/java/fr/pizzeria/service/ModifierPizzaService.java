@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
+import fr.pizzeria.model.IPizzaDao;
 import fr.pizzeria.model.Pizza;
 import fr.pizzeria.model.PizzaMemDao;
 
@@ -13,14 +14,14 @@ public class ModifierPizzaService extends MenuService {
 	}
 	
 	@Override
-	public void executeUC(Scanner sc, PizzaMemDao pizzaMemDao) throws UpdatePizzaException {
+	public void executeUC(Scanner sc, IPizzaDao pizzaDao) throws UpdatePizzaException {
 		System.out.println("Veuillez choisir le code de la pizza à modifier :");
 		String oldCode = sc.next();
-		if (!pizzaMemDao.pizzaExists(oldCode))
+		if (!pizzaDao.pizzaExists(oldCode))
 			throw new UpdatePizzaException("Erreur : Pizza introuvable.");
 		System.out.println("Veuillez saisir le nouveau code :");
 		String newCode = sc.next();
-		if (pizzaMemDao.pizzaExists(newCode))
+		if (!oldCode.equals(newCode) && pizzaDao.pizzaExists(newCode))
 			throw new UpdatePizzaException("Erreur : Cette pizza existe déjà.");
 		System.out.println("Veuillez saisir le nouveau nom (sans espace) :");
 		String newLibelle = sc.next();
@@ -49,6 +50,6 @@ public class ModifierPizzaService extends MenuService {
 		default:
 			newCategorie = CategoriePizza.SANS_VIANDE;
 		}
-		pizzaMemDao.updatePizza(oldCode, new Pizza(newCode, newLibelle, newPrix, newCategorie));
+		pizzaDao.updatePizza(oldCode, new Pizza(newCode, newLibelle, newPrix, newCategorie));
 	}
 }

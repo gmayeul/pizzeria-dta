@@ -78,4 +78,9 @@ public class PizzaMemDao implements IPizzaDao {
 		return found;
 	}
 
+	@Override
+	public void populatePizzas() {
+		throw new RuntimeException("Cette méthode n'est pas implémentée.");		
+	}
+
 }
