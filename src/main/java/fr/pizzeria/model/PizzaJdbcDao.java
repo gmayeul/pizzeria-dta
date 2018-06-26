@@ -12,7 +12,7 @@ import fr.pizzeria.utils.ConnectionProvider;
 
 public class PizzaJdbcDao implements IPizzaDao {
 
-	// code erreur MariaDB en cas d'erruer d'unicité
+	// code erreur MariaDB en cas d'erreur d'unicité
 	final int ER_DUP_ERROR = 1062;
 
 	@Override

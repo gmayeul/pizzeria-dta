@@ -6,7 +6,6 @@ import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.IPizzaDao;
 import fr.pizzeria.model.Pizza;
-import fr.pizzeria.model.PizzaMemDao;
 
 public class ModifierPizzaService extends MenuService {
 	public ModifierPizzaService() {
