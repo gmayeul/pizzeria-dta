@@ -13,4 +13,5 @@ public interface IPizzaDao {
 	public Pizza findPizzaByCode(String codePizza);
 	public boolean pizzaExists(String codePizza);
 	public void populatePizzas();
+	public void exitPizzeria();
 }

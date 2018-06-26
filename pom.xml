@@ -6,6 +6,17 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+
+		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -35,5 +46,60 @@
 			<artifactId>mariadb-java-client</artifactId>
 			<version>1.1.7</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<version>1.0.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.1.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-java8</artifactId>
+			<version>5.1.0.Final</version>
+		</dependency>
 	</dependencies>
+	<profiles>
+		<!-- implémentation JDBC PHPMyAdmin local -->
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<id>pizJdbc</id>
+			<properties>
+				<instanceName>fr.pizzeria.model.PizzaJdbcDao</instanceName>
+				<driver>org.mariadb.jdbc.Driver</driver>
+				<url>jdbc:mariadb://localhost:3306/pizzeria</url>
+				<user>root</user>
+				<pwd></pwd>
+			</properties>
+		</profile>
+
+		<!-- implémentation JDBC CleverCloud -->
+		<profile>
+			<id>pizCleverCloud</id>
+			<properties>
+				<instanceName>fr.pizzeria.model.PizzaJdbcDao</instanceName>
+				<driver>org.mariadb.jdbc.Driver</driver>
+				<url>jdbc:mariadb://bkip90cqr-mysql.services.clever-cloud.com:3306/bkip90cqr</url>
+				<user>ua80kn9n2eltnrxu</user>
+				<pwd>6fI5Gc8bU8pfTYlORBo</pwd>
+			</properties>
+		</profile>
+
+		<!-- implémentation JPA local -->
+		<profile>
+			<id>pizJpa</id>
+			<properties>
+				<instanceName>fr.pizzeria.model.PizzaJpaDao</instanceName>
+				<driver>org.mariadb.jdbc.Driver</driver>
+				<url>jdbc:mariadb://localhost:3306/pizzeria</url>
+				<user>root</user>
+				<pwd></pwd>
+			</properties>
+		</profile>
+	</profiles>
 </project>

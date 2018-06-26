@@ -194,4 +194,10 @@ public class PizzaJdbcDao implements IPizzaDao {
 		}
 	}
 
+	@Override
+	public void exitPizzeria() {
+		// ne fait rien
+		
+	}
+
 }

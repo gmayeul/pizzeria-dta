@@ -1,15 +1,17 @@
 package fr.pizzeria.factory;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.model.IPizzaDao;
-import fr.pizzeria.model.PizzaJdbcDao;
 import fr.pizzeria.service.AjouterPizzaService;
+import fr.pizzeria.service.ExitPizzeriaService;
 import fr.pizzeria.service.ListerPizzasService;
 import fr.pizzeria.service.ModifierPizzaService;
 import fr.pizzeria.service.PeuplerPizzasService;
 import fr.pizzeria.service.SupprimerPizzaService;
+import fr.pizzeria.utils.Config;
 
 public class MenuServiceFactory {
 	Scanner sc;
@@ -19,11 +21,18 @@ public class MenuServiceFactory {
 	ModifierPizzaService modifierPizzaService;
 	SupprimerPizzaService supprimerPizzaService;
 	PeuplerPizzasService peuplerPizzasService;
+	ExitPizzeriaService exitPizzeriaService;
 
 	public MenuServiceFactory() {
+		Config.load();
 		sc = new Scanner(System.in);
-		// pizzaDao = new PizzaMemDao();
-		pizzaDao = new PizzaJdbcDao();
+		try {
+			Class<?> dao = Class.forName(Config.instanceName);
+			pizzaDao = (IPizzaDao) dao.getConstructor().newInstance();
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
 		listerPizzasService = new ListerPizzasService();
 		ajouterPizzaService = new AjouterPizzaService();
 		modifierPizzaService = new ModifierPizzaService();
@@ -91,7 +100,13 @@ public class MenuServiceFactory {
 			}
 			break;
 		case 99:
-			System.exit(0);
+			try {
+				exitPizzeriaService.executeUC(sc, pizzaDao);
+			} catch (StockageException e) {
+				e.printStackTrace();
+			} finally {
+				System.exit(0);
+			}
 			break;
 		default:
 			System.out.println("Veuillez saisir un choix valide.");
